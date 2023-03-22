@@ -1,4 +1,6 @@
 import { Component } from 'react';
+import { fetchImages } from '../../api/api';
+
 import {
   Header,
   Form,
@@ -18,10 +20,21 @@ export class SearchBar extends Component {
     });
   };
 
+  onFormSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      const data = await fetchImages(this.state.querry, 1);
+      this.props.onNewQuerrySend(data.hits);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   render() {
     return (
       <Header>
-        <Form onSubmit={this.props.onFormSubmit}>
+        <Form onSubmit={this.onFormSubmit}>
           <SearchButton type="submit">
             <SearchButtonLabel>Search</SearchButtonLabel>
           </SearchButton>
@@ -29,7 +42,7 @@ export class SearchBar extends Component {
             onChange={this.onInputChange}
             type="text"
             autocomplete="off"
-            autofocus
+            autoFocus
             placeholder="Search images and photos"
             value={this.state.querry}
           />
