@@ -7,6 +7,5 @@ export const fetchImages = async function (querry, page) {
   const url = `${BASE_URL}?q=${querry}&page=${page}&key=${KEY}${BASE_PARAMS}`;
   const response = await axios.get(url);
   const data = response.data;
-  console.log(data);
   return data;
 };
