@@ -43,6 +43,7 @@ export class SearchBar extends Component {
         return;
       }
       this.props.onNewQuerrySend(data.hits, querry, data.totalHits);
+      this.setState({ querry: '' });
       Notiflix.Notify.success(`Seccess, we found ${data.totalHits} images`);
     } catch (error) {
       console.log(error);
